@@ -28,8 +28,7 @@ const Main = styled.main`
 const HolyGrail = ({children}: HolyGrailProps) => {
   return (
     <Wrapper>
-      {/* 아 이거 너비를 차지 안하는구나 이런 */}
-      {/* <SideBar mode="normal" toggled={true}>
+      <SideBar title="WARD" mode="normal" toggled={true} toggleAnimation="shrink">
         <ListItem leading={leading1}>판매 현황</ListItem>
         <ListItem leading={leading2} border="none">
           상품 관리 / 등록
@@ -40,7 +39,7 @@ const HolyGrail = ({children}: HolyGrailProps) => {
         <ListItem leading={leading4} border="none">
           고객 문의 관리
         </ListItem>
-      </SideBar> */}
+      </SideBar>
       <Main>
         <PageHeader
           backgroundColor="white"
