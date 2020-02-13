@@ -1,7 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import LoginSection from "../../components/sections/LoginSection/LoginSection";
+import ProductManageSection from "../../components/sections/ProductManageSection/ProductManageSection";
 
 interface MatchParams {
   mode: "login" | "register" | "verify";

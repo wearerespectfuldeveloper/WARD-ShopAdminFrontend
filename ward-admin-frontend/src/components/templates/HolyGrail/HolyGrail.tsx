@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 import { SideBar, ListItem, Icon, PageHeader } from "react-uikit-ward";
 
@@ -13,7 +14,7 @@ const leading3 = <Icon icon="customers"></Icon>;
 const leading4 = <Icon icon="chatting"></Icon>;
 
 const leftElement = <Icon icon="menu"></Icon>;
-const rightElement = <Icon icon="customers"></Icon>;
+const rightElement = <Link to="/login/login"><Icon icon="customers"></Icon></Link>;
 
 const Wrapper = styled.div`
   display: flex;
