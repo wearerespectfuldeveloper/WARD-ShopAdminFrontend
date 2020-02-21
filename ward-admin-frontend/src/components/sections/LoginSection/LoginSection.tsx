@@ -24,23 +24,25 @@ const ImgDiv = styled.div`
   background-size: cover;
 `;
 
+const inputWidth = '400px';
+
 const bodies = {
   login: (
     <Fragment>
-      <Input inputType="text" inputPlaceHolder="아이디"></Input>
-      <Input inputType="text" inputPlaceHolder="비밀번호"></Input>
+      <Input inputType="text" width={inputWidth} inputPlaceHolder="아이디"></Input>
+      <Input inputType="text" width={inputWidth} inputPlaceHolder="비밀번호"></Input>
     </Fragment>
   ),
   register: (
     <Fragment>
-      <Input inputType="text" inputPlaceHolder={"유저 이름"} />
-      <Input inputType="text" inputPlaceHolder={"이메일"} disabled={false} />
-      <Input inputType="text" inputPlaceHolder={"아이디"} disabled={false} />
-      <Input inputType="text" inputPlaceHolder={"패스워드"} />
-      <Input inputType="text" inputPlaceHolder={"패스워드 확인"} />
+      <Input inputType="text" width={inputWidth} inputPlaceHolder={"유저 이름"} />
+      <Input inputType="text" width={inputWidth} inputPlaceHolder={"이메일"} disabled={false} />
+      <Input inputType="text" width={inputWidth} inputPlaceHolder={"아이디"} disabled={false} />
+      <Input inputType="text" width={inputWidth} inputPlaceHolder={"패스워드"} />
+      <Input inputType="text" width={inputWidth} inputPlaceHolder={"패스워드 확인"} />
     </Fragment>
   ),
-  verify: <Input inputType="text" inputPlaceHolder={"인증 코드"} />
+  verify: <Input inputType="text" width={inputWidth} inputPlaceHolder={"인증 코드"} />
 };
 
 const footers = {
@@ -52,12 +54,12 @@ const footers = {
   ),
   register: (
     <ButtonGroup gap="2.5rem">
-      <Button><Link to="/account/verify">회원가입</Link></Button>
+      <Button><Link to="/account/verify">다음</Link></Button>
     </ButtonGroup>
   ),
   verify: (
     <ButtonGroup gap="2.5rem">
-      <Button><Link to="/account/login">회원가입</Link></Button>
+      <Button><Link to="/">인증하기</Link></Button>
     </ButtonGroup>
   )
 };

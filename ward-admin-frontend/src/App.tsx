@@ -1,7 +1,17 @@
 import React from "react";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import { BrowserRouter as Router, Route, Switch, RouteComponentProps  } from "react-router-dom";
+import ProductManagePage from "./pages/ProductManagePage/ProductManagePage";
+import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
+import HolyGrailTemplate from "./components/templates/HolyGrail/HolyGrail";
+import Counter from './components/test/Counter';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  RouteComponentProps
+} from "react-router-dom";
 import "./App.css";
 
 // interface MatchParams {
@@ -15,10 +25,23 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Switch>
-          <Route path="/" exact component={DashboardPage}></Route>
-          <Route path="/account/:mode" exact component={LoginPage}></Route>
-        </Switch>
+        <Counter></Counter>
+        <HolyGrailTemplate>
+          <Switch>
+            <Route path="/" exact component={DashboardPage}></Route>
+            <Route path="/account/:mode" exact component={LoginPage}></Route>
+            <Route
+              path="/productManage"
+              exact
+              component={ProductManagePage}
+            ></Route>
+            <Route
+              path="/productDetail/:product"
+              exact
+              component={ProductDetailPage}
+            ></Route>
+          </Switch>
+        </HolyGrailTemplate>
       </Router>
     </div>
   );

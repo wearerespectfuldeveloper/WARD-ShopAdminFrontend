@@ -14,7 +14,7 @@ const leading3 = <Icon icon="customers"></Icon>;
 const leading4 = <Icon icon="chatting"></Icon>;
 
 const leftElement = <Icon icon="menu"></Icon>;
-const rightElement = <Link to="/login/login"><Icon icon="customers"></Icon></Link>;
+const rightElement = <Link to="/account/login"><Icon icon="customers"></Icon></Link>;
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,6 +46,7 @@ const HolyGrail = ({children}: HolyGrailProps) => {
           backgroundColor="white"
           leftElement={leftElement}
           rightElement={rightElement}
+          sticky={true}
         />
         {children}
       </Main>

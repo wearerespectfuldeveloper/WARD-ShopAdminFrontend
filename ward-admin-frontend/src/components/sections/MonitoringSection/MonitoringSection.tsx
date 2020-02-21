@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 import { ListItem, Card, Icon, Table, TableRow } from "react-uikit-ward";
 
@@ -70,6 +71,7 @@ const MonitoringSection = ({}: MonitoringSection) => {
 
   return (
     <Fragment>
+      <h1 style={{margin: "0px 0px 40px 0px"}}>Products</h1>
       <WrapperDiv>
         <Card width={upperCardWidth} backgroundColor="white">
           <ListItem
@@ -161,6 +163,7 @@ const MonitoringSection = ({}: MonitoringSection) => {
               ]}
             />
           </Table>
+          <Link to="/productManage">상품 전체 보기</Link>
         </Card>
         <Card title="개요" width="450px" backgroundColor="white">
           <ColumnFlexDiv>

@@ -1,18 +1,24 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import styled from "styled-components";
 
 import ProductManageSection from "../../components/sections/ProductManageSection/ProductManageSection";
 
-interface MatchParams {
-  mode: "login" | "register" | "verify";
-}
+const WrapperDiv = styled.div`
+  background-color: #f0f0f7;
+  padding: 3.125rem 4.6875rem;
+  height: 100%;
 
-interface MatchProps extends RouteComponentProps<MatchParams> {}
+  > h1 {
+    margin: 0px 0px 40px 0px;
+  }
+`;
 
-const LoginPage = ({ match }: MatchProps) => {
-  const mode: "login" | "register" | "verify" = match.params.mode;
-
-  return <LoginSection mode={mode}></LoginSection>;
+const ProductManagePage = ({}) => {
+  return (
+    <WrapperDiv>
+      <ProductManageSection></ProductManageSection>
+    </WrapperDiv>
+  );
 };
 
-export default LoginPage;
+export default ProductManagePage;
