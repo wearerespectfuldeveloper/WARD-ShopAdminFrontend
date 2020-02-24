@@ -4,7 +4,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductManagePage from "./pages/ProductManagePage/ProductManagePage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import HolyGrailTemplate from "./components/templates/HolyGrail/HolyGrail";
-import Counter from './components/test/Counter';
 
 import {
   BrowserRouter as Router,
@@ -25,7 +24,6 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Counter></Counter>
         <HolyGrailTemplate>
           <Switch>
             <Route path="/" exact component={DashboardPage}></Route>

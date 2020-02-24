@@ -1,13 +1,15 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import { ListItem, Card, Icon, Table, TableRow } from "react-uikit-ward";
 
-type MonitoringSection = {
-  template?: React.ReactNode;
-};
+import useProducts from "../../../hooks/useProducts";
 
+// 색션 props 타입
+type MonitoringSection = {};
+
+// 섹션 Styled Components
 const WrapperDiv = styled.div`
   display: flex;
   justify-content: space-between;
@@ -36,42 +38,98 @@ const ColumnFlexDiv = styled.div`
   }
 `;
 
+// 섹션 정적 BLOCK and UNIT
+const totalBenefitLeading = (
+  <Icon icon="moneyBag" color="#56D9FE" bgColor="#56D9FE"></Icon>
+);
+const totalBenefitTrailing = <Icon icon="menu"></Icon>;
+
+const monthlyBenefitLeading = (
+  <Icon icon="cart" color="#A4A1FB" bgColor="#A4A1FB"></Icon>
+);
+const monthlyBenefitTrailing = <Icon icon="menu"></Icon>;
+
+const growthRateLeading = (
+  <Icon icon="trendUp" color="#4AD991" bgColor="transparent"></Icon>
+);
+const growthRateTrailing = <Icon icon="menu"></Icon>;
+
+const totalBenefitContent = (
+  <ContentDiv>
+    <h1>$50,000</h1>
+    <span>총 수익</span>
+  </ContentDiv>
+);
+
+const monthlyBenefitContent = (
+  <ContentDiv>
+    <h1>$1,250</h1>
+    <span>월 수익</span>
+  </ContentDiv>
+);
+
+const growthRateContent = (
+  <ContentDiv>
+    <h1>+2.0%</h1>
+    <span>성장률</span>
+  </ContentDiv>
+);
+
+const TableHead = (
+  <TableRow
+    type="head"
+    cellList={[
+      { type: "text", data: "상품" },
+      { type: "text", data: "카테고리" },
+      { type: "text", data: "가격" },
+      { type: "text", data: "재고상태" },
+      { type: "text", data: "등록날짜" }
+    ]}
+  />
+);
+
+// 기타 변수
+const upperCardWidth = "450px";
+
 const MonitoringSection = ({}: MonitoringSection) => {
-  const totalBenefitLeading = <Icon icon="moneyBag" color="#56D9FE" bgColor="#56D9FE"></Icon>;
-  const totalBenefitTrailing = <Icon icon="menu"></Icon>;
+  // 섹션 State
+  const products = useProducts();
 
-  const monthlyBenefitLeading = <Icon icon="cart" color="#A4A1FB" bgColor="#A4A1FB"></Icon>;
-  const monthlyBenefitTrailing = <Icon icon="menu"></Icon>;
+  
 
-  const growthRateLeading = <Icon icon="trendUp" color="#4AD991" bgColor="transparent"></Icon>;
-  const growthRateTrailing = <Icon icon="menu"></Icon>;
-
-  const totalBenefitContent = (
-    <ContentDiv>
-      <h1>$50,000</h1>
-      <span>총 수익</span>
-    </ContentDiv>
-  );
-
-  const monthlyBenefitContent = (
-    <ContentDiv>
-      <h1>$1,250</h1>
-      <span>월 수익</span>
-    </ContentDiv>
-  );
-
-  const growthRateContent = (
-    <ContentDiv>
-      <h1>+2.0%</h1>
-      <span>성장률</span>
-    </ContentDiv>
-  );
-
-  const upperCardWidth = "450px";
+  const ProductRows = products.map(product => {
+    console.log(product);
+    return (
+      <TableRow
+        cellList={[
+          {
+            type: "picture",
+            data: [product.imageResource, product.name]
+          },
+          {
+            type: "text",
+            data: product.categoryName
+          },
+          {
+            type: "price",
+            data: product.price
+          },
+          {
+            type: "stock",
+            data: product.amount
+          },
+          {
+            type: "date",
+            data: product.createdDate
+          }
+        ]}
+      />
+    );
+  });
 
   return (
     <Fragment>
-      <h1 style={{margin: "0px 0px 40px 0px"}}>Products</h1>
+      <h1 style={{ margin: "0px 0px 40px 0px" }}>Products</h1>
       <WrapperDiv>
         <Card width={upperCardWidth} backgroundColor="white">
           <ListItem
@@ -107,61 +165,8 @@ const MonitoringSection = ({}: MonitoringSection) => {
       <WrapperDiv>
         <Card title="판매 현황" width="968px" backgroundColor="white">
           <Table>
-            <TableRow
-              type="head"
-              cellList={[
-                { type: "text", data: "상품" },
-                { type: "text", data: "카테고리" },
-                { type: "text", data: "가격" },
-                { type: "text", data: "재고상태" },
-                { type: "text", data: "등록날짜" }
-              ]}
-            />
-            <TableRow
-              cellList={[
-                {
-                  type: "picture",
-                  data: [
-                    "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-                    "자바 티셔츠"
-                  ]
-                },
-                { type: "text", data: "티셔츠" },
-                { type: "price", data: "29300" },
-                { type: "stock", data: "10" },
-                { type: "date", data: "2020-01-20" }
-              ]}
-            />
-            <TableRow
-              cellList={[
-                {
-                  type: "picture",
-                  data: [
-                    "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-                    "자바 티셔츠"
-                  ]
-                },
-                { type: "text", data: "티셔츠" },
-                { type: "price", data: "29300" },
-                { type: "stock", data: "200" },
-                { type: "date", data: "2020-01-20" }
-              ]}
-            />
-            <TableRow
-              cellList={[
-                {
-                  type: "picture",
-                  data: [
-                    "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-                    "자바 티셔츠"
-                  ]
-                },
-                { type: "text", data: "티셔츠" },
-                { type: "price", data: "29300" },
-                { type: "stock", data: "0" },
-                { type: "date", data: "2020-01-20" }
-              ]}
-            />
+            {TableHead}
+            {ProductRows}
           </Table>
           <Link to="/productManage">상품 전체 보기</Link>
         </Card>
