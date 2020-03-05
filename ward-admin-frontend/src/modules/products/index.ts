@@ -1,44 +1,73 @@
-import { createAction, ActionType, createReducer } from "typesafe-actions";
+import { createAsyncAction, ActionType, createReducer } from "typesafe-actions";
+import { Product } from "../../api/produts";
+import { AxiosError } from "axios";
 
 // 액션 type
 const GET_PRODUCTS = "products/GET_PRODUCTS";
+const GET_PRODUCTS_SUCCESS = "products/GET_PRODUCTS_SUCCESS";
+const GET_PRODUCTS_ERROR = "products/GET_PRODUCTS_ERROR";
+
 const CREATE_PRODUCT = "products/CREATE_PRODUCT";
+const CREATE_PRODUCT_SUCCESS = "products/CREATE_PRODUCT_SUCCESS";
+const CREATE_PRODUCT_ERROR = "products/CREATE_PRODUCT_ERROR";
+
 const UPDATE_PRODUCT = "products/UPDATE_PRODUCT";
+const UPDATE_PRODUCT_SUCCESS = "products/UPDATE_PRODUCT_SUCCESS";
+const UPDATE_PRODUCT_ERROR = "products/UPDATE_PRODUCT_ERROR";
+
 const DELETE_PRODUCT = "products/DELETE_PRODUCT";
+const DELETE_PRODUCT_SUCCESS = "products/DELETE_PRODUCT_SUCCESS";
+const DELETE_PRODUCT_ERROR = "products/DELETE_PRODUCT_ERROR";
 
 // 액션 생성 함수
+export const getProducts = createAsyncAction(
+  GET_PRODUCTS,
+  GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_ERROR
+)<string, Product[], AxiosError>();
 
-export const getProducts = createAction(GET_PRODUCTS)();
+export const createProduct = createAsyncAction(
+  CREATE_PRODUCT,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_ERROR
+)<string, unknown, AxiosError>();
 
-export const createProduct = createAction(CREATE_PRODUCT)<Product>();
+export const updateProduct = createAsyncAction(
+  UPDATE_PRODUCT,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_ERROR
+)<string, unknown, AxiosError>();
 
-export const updateProduct = createAction(UPDATE_PRODUCT)<Product>();
+export const deleteProduct = createAsyncAction(
+  DELETE_PRODUCT,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_ERROR
+)<string, unknown, AxiosError>();
 
-export const deleteProduct = createAction(DELETE_PRODUCT)<number>();
-
-// export const getProducts = () => ({
-//   type: GET_PRODUCTS
-// });
-
-// export const createProduct = (product: Product) => ({
-//   type: CREATE_PRODUCT,
-//   payload: product
-// });
-
-// export const updateProduct = (product: Product) => ({
-//   type: UPDATE_PRODUCT,
-//   payload: product
-// });
-
-// export const deleteProduct = (idx: number) => ({
-//   type: DELETE_PRODUCT,
-//   payload: idx
-// });
-
-// 액션들의 타입스크립트 타입 준비
 const actions = { getProducts, createProduct, updateProduct, deleteProduct };
 
-type ProductsAction = ActionType<typeof actions>;
+type ProductState = {
+  loading: boolean;
+  error: Error | null;
+  allProducts: Product[] | [];
+  selectedProduct: Product | {};
+};
+
+type ProductAction = ActionType<typeof actions>;
+
+const initialState = {
+  loading: false,
+  error: null,
+  allProducts: [],
+  selectedProduct: {}
+};
+
+const product = createReducer<ProductState, ProductAction>(initialState, {
+  [GET_PRODUCTS]: state => ({
+    ...state,
+    
+  })
+});
 
 // type ProductsAction =
 //   | ReturnType<typeof getProducts>
@@ -46,37 +75,7 @@ type ProductsAction = ActionType<typeof actions>;
 //   | ReturnType<typeof updateProduct>
 //   | ReturnType<typeof deleteProduct>;
 
-// 상태를 위한 타입 선언 - 컴포넌트에서 불러와서 사용할 것이기 때문에 내보낸다.
-export type Product = {
-  idx: number;
-  name: string;
-  price: number | string;
-  description: string;
-  imageResource: string;
-  amount: number | string;
-  categoryName: string;
-  createdDate: string;
-};
-
-type ProductsState = Product[];
-
-// 초기값 설정
-const initialState: ProductsState = [
-  {
-    idx: 1,
-    name: "준비중입니다",
-    price: 0,
-    description: "잠시만 기다려주십시오",
-    imageResource:
-      "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-    amount: 22,
-    categoryName: "티셔츠",
-    createdDate: "2020-12-12"
-  }
-];
-
 // 리듀서 생성 - 모두 작업 이후 전체 상품을 담을 배열 상태를 반환합니다.
-
 
 //createReducer 를 사용 할 때에는 Generic 으로 상태의 타입과 액션들의 타입을 넣어주어야 합니다. createReducer에서는 이를 사용하여 내부에 각각 액션들을 위하여 구현할 함수에서 타입을 추론합니다.
 
