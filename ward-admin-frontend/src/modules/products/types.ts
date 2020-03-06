@@ -6,9 +6,9 @@ export type ProductState = {
   products: {
     loading: boolean;
     error: Error | null;
-    all: Product[];
-    selected: Product | null;
-  }
+    data: Product[];
+  },
+  selectedProduct: Product | null;
 };
 
 export type ProductAction = ActionType<typeof actions>;

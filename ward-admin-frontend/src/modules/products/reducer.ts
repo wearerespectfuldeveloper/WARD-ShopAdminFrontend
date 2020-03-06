@@ -21,13 +21,14 @@ const initialState: ProductState = {
   products: {
     loading: false,
     error: null,
-    all: [],
-    selected: {
-      idx: 0,
-      name: "상품을 선택해주세요",
-      description: "상품을 선택해주세요"
-    }
+    data: [],
+  },
+  selectedProduct: {
+    idx: 0,
+    name: "상품을 선택해주세요",
+    description: "상품을 선택해주세요"
   }
+  // 분리해야겠다. 그냥 퍼즐 맞추기라고 생각하자. 안 그러면 정말 재미없을 듯
 };
 
 const product = createReducer<ProductState, ProductAction>(initialState, {
@@ -36,12 +37,7 @@ const product = createReducer<ProductState, ProductAction>(initialState, {
     products: {
       loading: true,
       error: null,
-      all: [],
-      selected: {
-        idx: 0,
-        name: "상품을 선택해주세요",
-        description: "상품을 선택해주세요"
-      }
+      data: [],
     }
   }),
   [GET_PRODUCTS_SUCCESS]: (state, action) => ({
@@ -49,12 +45,7 @@ const product = createReducer<ProductState, ProductAction>(initialState, {
     products: {
       loading: false,
       error: null,
-      all: action.payload,
-      selected: {
-        idx: 0,
-        name: "상품을 선택해주세요",
-        description: "상품을 선택해주세요"
-      }
+      data: action.payload
     }
   }),
   [GET_PRODUCTS_ERROR]: (state, action) => ({
@@ -62,12 +53,7 @@ const product = createReducer<ProductState, ProductAction>(initialState, {
     products: {
       loading: false,
       error: action.payload,
-      all: [],
-      selected: {
-        idx: 0,
-        name: "상품을 선택해주세요",
-        description: "상품을 선택해주세요"
-      }
+      data: []
     }
   }),
   [CREATE_PRODUCT]: (state, action) => ({
@@ -75,9 +61,9 @@ const product = createReducer<ProductState, ProductAction>(initialState, {
   }),
   [CREATE_PRODUCT_SUCCESS]: (state, action) => {
     const processed = { ...state };
-
+    processed.products.data.push(action.payload);
     return {
-      ...state
+      ...processed
     };
   },
   [CREATE_PRODUCT_ERROR]: (state, action) => ({

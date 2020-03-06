@@ -20,26 +20,26 @@ export const DELETE_PRODUCT_SUCCESS = "products/DELETE_PRODUCT_SUCCESS";
 export const DELETE_PRODUCT_ERROR = "products/DELETE_PRODUCT_ERROR";
 
 // 액션 생성 함수
-export const getProducts = createAsyncAction(
+export const getProductsAsync = createAsyncAction(
   GET_PRODUCTS,
   GET_PRODUCTS_SUCCESS,
   GET_PRODUCTS_ERROR
   // 기본, Success, Error 의 결과물의 타입
-)<string, Product[], AxiosError>();
+)<string | number, Product[], AxiosError>();
 
-export const createProduct = createAsyncAction(
+export const createProductAsync = createAsyncAction(
   CREATE_PRODUCT,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR
-)<string, Product[], AxiosError>();
+)<string, Product, AxiosError>();
 
-export const updateProduct = createAsyncAction(
+export const updateProductAsync = createAsyncAction(
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_ERROR
 )<string, Product, AxiosError>();
 
-export const deleteProduct = createAsyncAction(
+export const deleteProductAsync = createAsyncAction(
   DELETE_PRODUCT,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_ERROR
