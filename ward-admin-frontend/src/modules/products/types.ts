@@ -2,11 +2,13 @@ import * as actions from './actions';
 import { ActionType } from "typesafe-actions";
 import { Product } from "../../api/produts";
 
-type ProductState = {
-  loading: boolean;
-  error: Error | null;
-  allProducts: Product[] | [];
-  selectedProduct: Product | {};
+export type ProductState = {
+  products: {
+    loading: boolean;
+    error: Error | null;
+    all: Product[];
+    selected: Product | null;
+  }
 };
 
-type ProductAction = ActionType<typeof actions>;
+export type ProductAction = ActionType<typeof actions>;
