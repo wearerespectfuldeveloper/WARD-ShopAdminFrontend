@@ -24,23 +24,23 @@ export const getProductsAsync = createAsyncAction(
   GET_PRODUCTS,
   GET_PRODUCTS_SUCCESS,
   GET_PRODUCTS_ERROR
-  // 기본, Success, Error 의 결과물의 타입
-)<string | number, Product[], AxiosError>();
+  // Request, Success, Error 의 action.payload의 타입
+)<{ categoryIdx: string | number, createdDate: string }, Product[], AxiosError>();
 
 export const createProductAsync = createAsyncAction(
   CREATE_PRODUCT,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR
-)<string, Product, AxiosError>();
+)<Product, Product, AxiosError>();
 
 export const updateProductAsync = createAsyncAction(
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_ERROR
-)<string, Product, AxiosError>();
+)<Product, Product, AxiosError>();
 
 export const deleteProductAsync = createAsyncAction(
   DELETE_PRODUCT,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_ERROR
-)<string, string | number, AxiosError>();
+)<string | number, number | string, AxiosError>();
