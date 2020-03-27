@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
-import counter from './counter';
 import products from './products';
+import categories from './categories';
 import github from './github/reducer';
 import { githubSaga } from './github';
+import { productsSaga } from './products';
+import { categoriesSaga } from './categories';
 import { all } from 'redux-saga/effects';
 
 const rootReducer = combineReducers({
-  counter,
   github,
+  categories,
   products,
 });
 
@@ -18,5 +20,5 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 // 루트 사가 만들어서 내보내기
 export function* rootSaga() {
-  yield all([githubSaga()]);
+  yield all([githubSaga(), productsSaga(), categoriesSaga()]);
 }

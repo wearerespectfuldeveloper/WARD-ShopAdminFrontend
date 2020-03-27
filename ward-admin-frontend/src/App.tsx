@@ -1,4 +1,7 @@
 import React from "react";
+
+import 'react-uikit-ward/dist/index.css';
+
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProductManagePage from "./pages/ProductManagePage/ProductManagePage";

@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useProducts from "../../../hooks/useProducts";
+import useCategories from '../../../hooks/useCategories'
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { getCurrentDate } from "../../../util";
+import "./ProductManageSection.scss";
 
 import {
   Card,
   Table,
   TableRow,
   DropDown,
-  Button,
-  ButtonGroup
+  ClickableIcon,
+  Button
 } from "react-uikit-ward";
 
 type ProductManageSectionProps = {};
@@ -19,21 +23,82 @@ const WrapperDiv = styled.div`
 `;
 
 const HeaderDiv = styled.div`
-  display: felx;
+  display: flex;
   justify-content: space-between;
-`
+  flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+`;
 
 const DropDownDiv = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 500px;
-`
+  flex: 1;
+  justify-content: flex-end;
+`;
 
 const ProductManageSection = ({}: ProductManageSectionProps) => {
+  // 섹션 State
+  const productsHooks = useProducts();
+  useEffect(() => {
+    productsHooks.loadProducts({
+      categoryIdx: "13",
+      createdDate: getCurrentDate()
+    });
+  }, []);
+
+  const categoriesHooks = useCategories();
+  useEffect(() => {
+    categoriesHooks.loadCategories();
+  }, []);
+
+
+  const productsList = productsHooks.products.data.map(item => {
+    return (
+      <TableRow
+        className="product-table"
+        key={item.idx}
+        cellList={[
+          {
+            type: "extra",
+            data: (
+              <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                <Link to={`/productDetail/${item.idx}`}><ClickableIcon icon="pencil"></ClickableIcon></Link>
+                <ClickableIcon icon="close"></ClickableIcon>
+              </div>
+            )
+          },
+          {
+            type: "picture",
+            data: { imageUrl: item.imageResource, title: item.name }
+          },
+          { type: "text", data: item.description },
+          { type: "price", data: item.price },
+          { type: "date", data: item.createdDate }
+        ]}
+      />
+    );
+  });
+
+  const emptyProductInfo = {
+    idx: 0,
+    name: "",
+    categoryIdx: 1,
+    description: "",
+    price: 0,
+    stockQuantity: 0,
+  };
+
+  const addButton = (
+    <Button onClick={() => productsHooks.createProducts(emptyProductInfo)}>상품 추가</Button>
+  );
+
+  const TableBody = <tbody style={{ display: "block" }}>{productsList}</tbody>;
+
   return (
-    <WrapperDiv>
+    <WrapperDiv className="_product-management-section">
       <HeaderDiv>
-        <h1 style={{ margin: "0px 0px 40px 0px" }}>Products</h1>
+        <div className="header">
+          <h1>Products</h1>
+        </div>
         <DropDownDiv>
           <DropDown
             text="카테고리"
@@ -77,93 +142,23 @@ const ProductManageSection = ({}: ProductManageSectionProps) => {
           ></DropDown>
         </DropDownDiv>
       </HeaderDiv>
-      <Card width="100%" title="상품 목록" backgroundColor="white">
+      <Card title="상품 목록" backgroundColor="white" sideContent={addButton}>
         <Table>
-          <TableRow
-            type="head"
-            cellList={[
-              { type: "text", data: "상품" },
-              { type: "text", data: "카테고리" },
-              { type: "text", data: "가격" },
-              { type: "text", data: "재고상태" },
-              { type: "text", data: "등록날짜" }
-            ]}
-          />
-          <Link to={"productDetail/:product"}><TableRow
-            cellList={[
-              {
-                type: "picture",
-                data: [
-                  "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-                  "자바 티셔츠"
-                ]
-              },
-              { type: "text", data: "티셔츠" },
-              { type: "price", data: "29300" },
-              { type: "stock", data: "10" },
-              { type: "date", data: "2020-01-20" }
-            ]}
-          /></Link>
-          <Link to="productDetail/:product"><TableRow
-            cellList={[
-              {
-                type: "picture",
-                data: [
-                  "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-                  "자바 티셔츠"
-                ]
-              },
-              { type: "text", data: "티셔츠" },
-              { type: "price", data: "29300" },
-              { type: "stock", data: "200" },
-              { type: "date", data: "2020-01-20" }
-            ]}
-          /></Link>
-          <Link to="productDetail/:product"><TableRow
-            cellList={[
-              {
-                type: "picture",
-                data: [
-                  "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-                  "자바 티셔츠"
-                ]
-              },
-              { type: "text", data: "티셔츠" },
-              { type: "price", data: "29300" },
-              { type: "stock", data: "0" },
-              { type: "date", data: "2020-01-20" }
-            ]}
-          /></Link>
-          <Link to="productDetail/:product"><TableRow
-            cellList={[
-              {
-                type: "picture",
-                data: [
-                  "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-                  "자바 티셔츠"
-                ]
-              },
-              { type: "text", data: "티셔츠" },
-              { type: "price", data: "29300" },
-              { type: "stock", data: "60" },
-              { type: "date", data: "2020-01-20" }
-            ]}
-          /></Link>
-          <Link to="productDetail/:product"><TableRow
-            cellList={[
-              {
-                type: "picture",
-                data: [
-                  "https://images.unsplash.com/photo-1553754538-466add009c05?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1190&q=80",
-                  "자바 티셔츠"
-                ]
-              },
-              { type: "text", data: "티셔츠" },
-              { type: "price", data: "29300" },
-              { type: "stock", data: "10" },
-              { type: "date", data: "2020-01-20" }
-            ]}
-          /></Link>
+          <thead style={{ display: "block" }}>
+            <TableRow
+              className="product-table"
+              type="head"
+              cellList={[
+                { type: "text", data: "" },
+                { type: "text", data: "상품" },
+                { type: "text", data: "설명" },
+                { type: "text", data: "가격" },
+                { type: "text", data: "등록날짜" }
+              ]}
+            />
+          </thead>
+
+          {TableBody}
         </Table>
       </Card>
     </WrapperDiv>

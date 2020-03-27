@@ -54,12 +54,12 @@ const footers = {
   ),
   register: (
     <ButtonGroup gap="2.5rem">
-      <Button><Link to="/account/verify">다음</Link></Button>
+      <Button><Link to="/account/verify" style={{color: 'white'}}>다음</Link></Button>
     </ButtonGroup>
   ),
   verify: (
     <ButtonGroup gap="2.5rem">
-      <Button><Link to="/">인증하기</Link></Button>
+      <Button><Link to="/" style={{color: 'white'}}>인증하기</Link></Button>
     </ButtonGroup>
   )
 };

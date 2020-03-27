@@ -1,6 +1,6 @@
 import * as actions from './actions';
 import { ActionType } from "typesafe-actions";
-import { Product } from "../../api/produts";
+import { Product } from "../../api/products";
 
 export type ProductState = {
   products: {
@@ -8,7 +8,7 @@ export type ProductState = {
     error: Error | null;
     data: Product[];
   },
-  selectedProduct: Product | null;
+  selectedProduct: Product | null | undefined;
 };
 
 export type ProductAction = ActionType<typeof actions>;

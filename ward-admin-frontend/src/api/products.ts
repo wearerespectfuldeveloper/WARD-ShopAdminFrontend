@@ -1,11 +1,11 @@
 import axios from "axios";
-import ProductDetailPage from "../pages/ProductDetailPage/ProductDetailPage";
 
 export async function getProducts(payload: {categoryIdx: string | number,
   createdDate: string}) {
   const response = await axios.get<Product[]>(
     `http://api.ward-study.com/products?Idx=${payload.categoryIdx}&createdDate=${payload.createdDate}`
   );
+  
   return response.data;
 }
 
@@ -32,7 +32,9 @@ export interface Product {
   name: string;
   description: string;
   imageResource?: string;
+  categoryIdx?: string | number;
   imgFile?: unknown;
   price?: number;
   stockQuantity?: number;
+  createdDate?: any;
 }

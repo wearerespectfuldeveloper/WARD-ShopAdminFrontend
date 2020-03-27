@@ -53,7 +53,7 @@ function* moveCategorySaga(
   }
 }
 
-export function* categorysSaga() {
+export function* categoriesSaga() {
   yield takeLatest(GET_CATEGORIES, getCategoriesSaga);
   yield takeLatest(CREATE_CATEGORY, createCategorySaga);
   yield takeLatest(UPDATE_CATEGORY, updateCategorySaga);

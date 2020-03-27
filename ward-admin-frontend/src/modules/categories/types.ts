@@ -8,7 +8,7 @@ export type CategoryState = {
     error: Error | null;
     data: Category[];
   },
-  selectedCategory: Category | null;
+  selectedCategory: Category | null | undefined;
 };
 
 export type CategoryAction = ActionType<typeof actions>;

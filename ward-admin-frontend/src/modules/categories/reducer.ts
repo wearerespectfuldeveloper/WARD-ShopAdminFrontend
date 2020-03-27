@@ -12,7 +12,8 @@ import {
   UPDATE_CATEGORY_SUCCESS,
   MOVE_CATEGORY,
   MOVE_CATEGORY_ERROR,
-  MOVE_CATEGORY_SUCCESS
+  MOVE_CATEGORY_SUCCESS,
+  SELECT_CATEGORY
 } from "./actions";
 
 // 전체 상품 리스트의
@@ -26,7 +27,7 @@ const initialState: CategoryState = {
   // 분리해야겠다. 그냥 퍼즐 맞추기라고 생각하자. 안 그러면 정말 재미없을 듯
 };
 
-const category = createReducer<CategoryState, CategoryAction>(initialState, {
+const categories = createReducer<CategoryState, CategoryAction>(initialState, {
   [GET_CATEGORIES]: state => ({
     ...state,
     categories: {
@@ -116,7 +117,16 @@ const category = createReducer<CategoryState, CategoryAction>(initialState, {
       loading: false,
       error: action.payload
     }
-  })
+  }),
+  [SELECT_CATEGORY]: (state, action) => {
+    const target = state.categories.data.find(x => x.idx === action.payload)
+
+    return {
+      ...state,
+      selectedCategory: target
+    }
+    
+  }
 });
 
-export default category;
+export default categories;

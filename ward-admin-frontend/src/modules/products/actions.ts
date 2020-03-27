@@ -1,5 +1,5 @@
-import { createAsyncAction, ActionType, createReducer } from "typesafe-actions";
-import { Product } from "../../api/produts";
+import { createAsyncAction, ActionType, createReducer, createAction } from "typesafe-actions";
+import { Product } from "../../api/products";
 import { AxiosError } from "axios";
 
 // 액션 type
@@ -44,3 +44,13 @@ export const deleteProductAsync = createAsyncAction(
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_ERROR
 )<string | number, number | string, AxiosError>();
+
+
+
+
+
+
+
+export const SELECT_PRODUCT = "products/SELECT_PRODUCT";
+
+export const selectProduct = createAction(SELECT_PRODUCT)<string | number>();

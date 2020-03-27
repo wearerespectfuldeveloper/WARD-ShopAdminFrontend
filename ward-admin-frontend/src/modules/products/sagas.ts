@@ -8,8 +8,8 @@ import {
   UPDATE_PRODUCT,
   DELETE_PRODUCT
 } from "./actions";
-import { Product, getProducts, createProduct, updateProduct, deleteProduct } from "../../api/produts";
-import { call, put, takeLatest } from "redux-saga/effects";
+import { Product, getProducts, createProduct, updateProduct, deleteProduct } from "../../api/products";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 function* getProductsSaga(action: ReturnType<typeof getProductsAsync.request>) {
   try {

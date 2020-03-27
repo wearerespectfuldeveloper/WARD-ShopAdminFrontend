@@ -12,7 +12,8 @@ import {
   UPDATE_PRODUCT_SUCCESS,
   DELETE_PRODUCT,
   DELETE_PRODUCT_ERROR,
-  DELETE_PRODUCT_SUCCESS
+  DELETE_PRODUCT_SUCCESS,
+  SELECT_PRODUCT
 } from "./actions";
 
 // 전체 상품 리스트의
@@ -25,7 +26,8 @@ const initialState: ProductState = {
   selectedProduct: {
     idx: 0,
     name: "상품을 선택해주세요",
-    description: "상품을 선택해주세요"
+    description: "상품을 선택해주세요",
+    createdDate: "상품을 선택해주세요"
   }
 };
 
@@ -155,7 +157,14 @@ const product = createReducer<ProductState, ProductAction>(initialState, {
       loading: false,
       error: action.payload
     }
-  })
+  }),
+  [SELECT_PRODUCT]: (state, action) => {
+    const target = state.products.data.find(x => x.idx === action.payload);
+    return {
+      ...state,
+      selectedProduct: target
+    }
+  }
 });
 
 export default product;

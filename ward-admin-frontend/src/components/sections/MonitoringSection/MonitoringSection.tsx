@@ -1,10 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import useProducts from "../../../hooks/useProducts";
+import { getCurrentDate } from "../../../util";
+
+import "./MonitoringSection.scss";
 
 import { ListItem, Card, Icon, Table, TableRow } from "react-uikit-ward";
-
-import useProducts from "../../../hooks/useProducts";
 
 // 색션 props 타입
 type MonitoringSection = {};
@@ -14,7 +16,12 @@ const WrapperDiv = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
+
+  > * {
+    flex-grow: 1;
+    margin: 10px;
+  }
 `;
 
 const ContentDiv = styled.div`
@@ -71,151 +78,165 @@ const monthlyBenefitContent = (
 const growthRateContent = (
   <ContentDiv>
     <h1>+2.0%</h1>
+
     <span>성장률</span>
   </ContentDiv>
 );
 
 const TableHead = (
-  <TableRow
-    type="head"
-    cellList={[
-      { type: "text", data: "상품" },
-      { type: "text", data: "카테고리" },
-      { type: "text", data: "가격" },
-      { type: "text", data: "재고상태" },
-      { type: "text", data: "등록날짜" }
-    ]}
-  />
+  <thead style={{display: "block"}}>
+    <TableRow
+      width="100%"
+      key={2500}
+      type="head"
+      className="product-table"
+      cellList={[
+        { type: "text", data: "상품" },
+        { type: "text", data: "가격" },
+        { type: "text", data: "설명" },
+        { type: "text", data: "등록날짜" }
+      ]}
+    />
+  </thead>
 );
-
-// 기타 변수
-const upperCardWidth = "450px";
 
 const MonitoringSection = ({}: MonitoringSection) => {
   // 섹션 State
-  const products = useProducts();
+  const productsStore = useProducts();
+  useEffect(() => {
+    productsStore.loadProducts({
+      categoryIdx: "13",
+      createdDate: getCurrentDate()
+    });
+  }, []);
 
-  
-
-  const ProductRows = products.map(product => {
-    console.log(product);
+  const productsList = productsStore.products.data.map(item => {
     return (
       <TableRow
+        className="product-table"
+        key={item.idx}
+        width="100%"
         cellList={[
           {
             type: "picture",
-            data: [product.imageResource, product.name]
+            data: { imageUrl: item.imageResource, title: item.name }
           },
-          {
-            type: "text",
-            data: product.categoryName
-          },
-          {
-            type: "price",
-            data: product.price
-          },
-          {
-            type: "stock",
-            data: product.amount
-          },
-          {
-            type: "date",
-            data: product.createdDate
-          }
+          { type: "text", data: item.description },
+          { type: "price", data: item.price },
+          { type: "date", data: item.createdDate }
         ]}
       />
     );
   });
 
+  const TableBody = <tbody style={{display: "block"}}>{productsList}</tbody>;
+
   return (
-    <Fragment>
-      <h1 style={{ margin: "0px 0px 40px 0px" }}>Products</h1>
-      <WrapperDiv>
-        <Card width={upperCardWidth} backgroundColor="white">
-          <ListItem
-            theme="light"
-            border="none"
-            leading={totalBenefitLeading}
-            trailing={totalBenefitTrailing}
-          >
-            {totalBenefitContent}
-          </ListItem>
-        </Card>
-        <Card width={upperCardWidth} backgroundColor="white">
-          <ListItem
-            theme="light"
-            border="none"
-            leading={monthlyBenefitLeading}
-            trailing={monthlyBenefitTrailing}
-          >
-            {monthlyBenefitContent}
-          </ListItem>
-        </Card>
-        <Card width={upperCardWidth} backgroundColor="white">
-          <ListItem
-            theme="light"
-            border="none"
-            leading={growthRateLeading}
-            trailing={growthRateTrailing}
-          >
-            {growthRateContent}
-          </ListItem>
-        </Card>
-      </WrapperDiv>
-      <WrapperDiv>
-        <Card title="판매 현황" width="968px" backgroundColor="white">
-          <Table>
-            {TableHead}
-            {ProductRows}
-          </Table>
-          <Link to="/productManage">상품 전체 보기</Link>
-        </Card>
-        <Card title="개요" width="450px" backgroundColor="white">
-          <ColumnFlexDiv>
-            <ListItem
-              leading={totalBenefitLeading}
-              trailing={"290 명"}
-              theme="light"
-              border="none"
-            >
-              현재 회원
-            </ListItem>
-            <ListItem
-              leading={totalBenefitLeading}
-              trailing={"490 개"}
-              theme="light"
-              border="none"
-            >
-              총 판매된 상품
-            </ListItem>
-            <ListItem
-              leading={totalBenefitLeading}
-              trailing={"120 개"}
-              theme="light"
-              border="none"
-            >
-              현재 판매중인 상품
-            </ListItem>
-            <ListItem
-              leading={totalBenefitLeading}
-              trailing={"490 개"}
-              theme="light"
-              border="none"
-            >
-              재고 부족
-            </ListItem>
-            <ListItem
-              leading={totalBenefitLeading}
-              trailing={"42 개"}
-              theme="light"
-              border="none"
-            >
-              재고 없음
-            </ListItem>
-          </ColumnFlexDiv>
-        </Card>
-      </WrapperDiv>
-    </Fragment>
+    <>
+      {productsStore.products.loading && (
+        <p style={{ textAlign: "center" }}>로딩중..</p>
+      )}
+      {productsStore.products.error && (
+        <p style={{ textAlign: "center" }}>에러 발생!</p>
+      )}
+      {productsStore.products.data.length !== 0 && (
+        <div className="monitoring-section">
+          <h1 style={{ margin: "0px 0px 20px 10px" }}>Products</h1>
+          <WrapperDiv>
+            <Card className="card-item" backgroundColor="white">
+              <ListItem
+                theme="light"
+                border="none"
+                leading={totalBenefitLeading}
+                trailing={totalBenefitTrailing}
+              >
+                {totalBenefitContent}
+              </ListItem>
+            </Card>
+            <Card className="card-item" backgroundColor="white">
+              <ListItem
+                theme="light"
+                border="none"
+                leading={monthlyBenefitLeading}
+                trailing={monthlyBenefitTrailing}
+              >
+                {monthlyBenefitContent}
+              </ListItem>
+            </Card>
+            <Card className="card-item" backgroundColor="white">
+              <ListItem
+                theme="light"
+                border="none"
+                leading={growthRateLeading}
+                trailing={growthRateTrailing}
+              >
+                {growthRateContent}
+              </ListItem>
+            </Card>
+          </WrapperDiv>
+          <WrapperDiv>
+            <Card title="판매 현황" width="968px" backgroundColor="white">
+              <Table width="100%">
+                {TableHead}
+                {TableBody}
+              </Table>
+              <div className="move-to-detail">
+                <Link to="/productManage">상품 전체 보기</Link>
+              </div>
+            </Card>
+            <Card title="개요" backgroundColor="white">
+              <ColumnFlexDiv>
+                <ListItem
+                  key={1}
+                  leading={totalBenefitLeading}
+                  trailing={"290 명"}
+                  theme="light"
+                  border="none"
+                >
+                  현재 회원
+                </ListItem>
+                <ListItem
+                  key={2}
+                  leading={totalBenefitLeading}
+                  trailing={"490 개"}
+                  theme="light"
+                  border="none"
+                >
+                  총 판매된 상품
+                </ListItem>
+                <ListItem
+                  key={3}
+                  leading={totalBenefitLeading}
+                  trailing={"120 개"}
+                  theme="light"
+                  border="none"
+                >
+                  현재 판매중인 상품
+                </ListItem>
+                <ListItem
+                  key={4}
+                  leading={totalBenefitLeading}
+                  trailing={"490 개"}
+                  theme="light"
+                  border="none"
+                >
+                  재고 부족
+                </ListItem>
+                <ListItem
+                  key={5}
+                  leading={totalBenefitLeading}
+                  trailing={"42 개"}
+                  theme="light"
+                  border="none"
+                >
+                  재고 없음
+                </ListItem>
+              </ColumnFlexDiv>
+            </Card>
+          </WrapperDiv>
+        </div>
+      )}
+    </>
   );
 };
 

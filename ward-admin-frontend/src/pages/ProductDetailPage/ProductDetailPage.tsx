@@ -10,6 +10,9 @@ const WrapperDiv = styled.div`
   > h1 {
     margin: 0px 0px 40px 0px;
   }
+  @media screen and (max-width: 1020px) {
+    padding: 1.5rem;
+  }
 `;
 
 const ProductDetailPage = ({}) => {

@@ -4,15 +4,15 @@ import { getCategoriesAsync } from '../modules/categories/actions'
 import { RootState } from '../modules';
 
 const useCategories = () => {
-  const { products, selectedProduct } = useSelector((state: RootState) => state.products);
+  const { categories, selectedCategory } = useSelector((state: RootState) => state.categories);
   const dispatch = useDispatch();
 
-  const onClickCategoryItem = useCallback((payload) => dispatch(getCategoriesAsync.request(payload)), [dispatch]);
+  const loadCategories = useCallback(() => dispatch(getCategoriesAsync.request()), [dispatch]);
 
   return {
-    products,
-    selectedProduct,
-    onClickCategoryItem,
+    categories,
+    selectedCategory,
+    loadCategories,
   };
 }
 

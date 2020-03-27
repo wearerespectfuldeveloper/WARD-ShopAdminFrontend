@@ -52,6 +52,9 @@ const sideContent = (
 );
 
 const ProductDetailSection = ({}: ProductDetailSectionProps) => {
+
+  
+
   return (
     <WrapperDiv>
       <Card
@@ -64,6 +67,7 @@ const ProductDetailSection = ({}: ProductDetailSectionProps) => {
           <Table>
             <TableRow
               type="head"
+              className="product-table"
               cellList={[
                 { type: "text", data: "#" },
                 { type: "text", data: "옵션" },
@@ -73,6 +77,7 @@ const ProductDetailSection = ({}: ProductDetailSectionProps) => {
               ]}
             />
             <TableRow
+              className="product-table"
               cellList={[
                 { type: "text", data: "1" },
                 { type: "text", data: "기본" },
@@ -82,6 +87,7 @@ const ProductDetailSection = ({}: ProductDetailSectionProps) => {
               ]}
             />
             <TableRow
+              className="product-table"
               cellList={[
                 { type: "text", data: "1" },
                 { type: "text", data: "기본" },
@@ -91,6 +97,7 @@ const ProductDetailSection = ({}: ProductDetailSectionProps) => {
               ]}
             />
             <TableRow
+              className="product-table"
               cellList={[
                 { type: "text", data: "1" },
                 { type: "text", data: "기본" },

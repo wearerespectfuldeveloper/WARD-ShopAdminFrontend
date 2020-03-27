@@ -1,4 +1,4 @@
-import { createAsyncAction } from "typesafe-actions";
+import { createAsyncAction, createAction } from "typesafe-actions";
 import { Category } from "../../api/categories";
 import { AxiosError } from "axios";
 
@@ -25,7 +25,7 @@ export const getCategoriesAsync = createAsyncAction(
   GET_CATEGORIES_SUCCESS,
   GET_CATEGORIES_ERROR
   // Request, Success, Error 의 action.payload의 타입
-)<any, Category[], AxiosError>();
+)<void, Category[], AxiosError>();
 
 export const createCategoryAsync = createAsyncAction(
   CREATE_CATEGORY,
@@ -44,3 +44,10 @@ export const moveCategoryAsync = createAsyncAction(
   MOVE_CATEGORY_SUCCESS,
   MOVE_CATEGORY_ERROR
 )<{ destIdx: number | string; sequence: number | string; targetIdx: number | string; }, any, AxiosError>();
+
+
+
+
+export const SELECT_CATEGORY = "CATEGORIES/SELECT_CATEGORY";
+
+export const selectCategoryAsync = createAction(SELECT_CATEGORY)<string | number>();
