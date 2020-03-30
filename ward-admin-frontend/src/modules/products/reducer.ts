@@ -159,7 +159,10 @@ const product = createReducer<ProductState, ProductAction>(initialState, {
     }
   }),
   [SELECT_PRODUCT]: (state, action) => {
-    const target = state.products.data.find(x => x.idx === action.payload);
+    const productList = state.products.data;
+    
+    const target = productList.find(x => x.idx == action.payload);
+
     return {
       ...state,
       selectedProduct: target

@@ -104,7 +104,7 @@ const MonitoringSection = ({}: MonitoringSection) => {
   // 섹션 State
   const productsStore = useProducts();
   useEffect(() => {
-    productsStore.loadProducts({
+    productsStore.loadProductsByCategoryIdx({
       categoryIdx: "13",
       createdDate: getCurrentDate()
     });

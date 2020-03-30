@@ -53,4 +53,4 @@ export const deleteProductAsync = createAsyncAction(
 
 export const SELECT_PRODUCT = "products/SELECT_PRODUCT";
 
-export const selectProduct = createAction(SELECT_PRODUCT)<string | number>();
+export const selectProductSync = createAction(SELECT_PRODUCT)<string | number>();

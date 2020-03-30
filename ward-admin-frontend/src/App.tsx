@@ -37,7 +37,7 @@ const App = () => {
               component={ProductManagePage}
             ></Route>
             <Route
-              path="/productDetail/:product"
+              path="/productDetail/:productIdx"
               exact
               component={ProductDetailPage}
             ></Route>

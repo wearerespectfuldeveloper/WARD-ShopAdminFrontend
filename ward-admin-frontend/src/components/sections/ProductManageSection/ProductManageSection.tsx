@@ -33,25 +33,23 @@ const DropDownDiv = styled.div`
   display: flex;
   flex: 1;
   justify-content: flex-end;
+
+  > * {
+    margin-left: 15px;
+  }
 `;
 
 const ProductManageSection = ({}: ProductManageSectionProps) => {
   // 섹션 State
-  const productsHooks = useProducts();
-  useEffect(() => {
-    productsHooks.loadProducts({
-      categoryIdx: "13",
-      createdDate: getCurrentDate()
-    });
-  }, []);
+  const productsStore = useProducts();
 
-  const categoriesHooks = useCategories();
+  const categoriesStore = useCategories();
   useEffect(() => {
-    categoriesHooks.loadCategories();
+    categoriesStore.loadCategories();
   }, []);
 
 
-  const productsList = productsHooks.products.data.map(item => {
+  const productsList = productsStore.products.data.map(item => {
     return (
       <TableRow
         className="product-table"
@@ -78,8 +76,7 @@ const ProductManageSection = ({}: ProductManageSectionProps) => {
     );
   });
 
-  const emptyProductInfo = {
-    idx: 0,
+  const emptyProductObj = {
     name: "",
     categoryIdx: 1,
     description: "",
@@ -88,7 +85,7 @@ const ProductManageSection = ({}: ProductManageSectionProps) => {
   };
 
   const addButton = (
-    <Button onClick={() => productsHooks.createProducts(emptyProductInfo)}>상품 추가</Button>
+    <Button onClick={() => productsStore.createProducts(emptyProductObj)}>상품 추가</Button>
   );
 
   const TableBody = <tbody style={{ display: "block" }}>{productsList}</tbody>;

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import ProductDetailSection from "../../components/sections/ProductDetailSection/ProductDetailSection";
+import { RouteComponentProps } from "react-router-dom";
+
 
 const WrapperDiv = styled.div`
   background-color: #f0f0f7;
@@ -15,10 +17,10 @@ const WrapperDiv = styled.div`
   }
 `;
 
-const ProductDetailPage = ({}) => {
+const ProductDetailPage = (props: any) => {
   return (
     <WrapperDiv>
-      <ProductDetailSection></ProductDetailSection>
+      <ProductDetailSection productIdx={props.match.params.productIdx}></ProductDetailSection>
     </WrapperDiv>
   );
 };

@@ -4,7 +4,8 @@ import {
   getProductsAsync,
   createProductAsync,
   updateProductAsync,
-  deleteProductAsync
+  deleteProductAsync,
+  selectProductSync
 } from "../modules/products/actions";
 import { RootState } from "../modules";
 import { Product } from "../api/products";
@@ -15,7 +16,7 @@ const useProducts = () => {
   );
   const dispatch = useDispatch();
 
-  const loadProducts = useCallback(
+  const loadProductsByCategoryIdx = useCallback(
     (payload: { categoryIdx: string | number; createdDate: string }) => {
       return dispatch(getProductsAsync.request(payload));
     },
@@ -43,13 +44,18 @@ const useProducts = () => {
     [dispatch]
   );
 
+  const selectProduct = useCallback((payload: string | number) => {
+    return dispatch(selectProductSync(payload));
+  }, [dispatch])
+
   return {
     products,
     selectedProduct,
-    loadProducts,
+    loadProductsByCategoryIdx,
     createProducts,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    selectProduct
   };
 };
 

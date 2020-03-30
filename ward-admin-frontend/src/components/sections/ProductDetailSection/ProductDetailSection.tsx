@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Route } from "react-router-dom";
+import useProducts from '../../../hooks/useProducts'
+import { getCurrentDate } from '../../../util'; 
 
 import { Card, Table, TableRow, Button } from "react-uikit-ward";
 
-type ProductDetailSectionProps = {};
+type ProductDetailSectionProps = {
+  productIdx: string | number;
+};
 
 const WrapperDiv = styled.div`
   display: flex;
@@ -51,9 +55,16 @@ const sideContent = (
   </SideContentDiv>
 );
 
-const ProductDetailSection = ({}: ProductDetailSectionProps) => {
-
+const ProductDetailSection = ({ productIdx }: ProductDetailSectionProps) => {
   
+  const productsStore = useProducts();
+
+  useEffect(() => {
+    productsStore.selectProduct(productIdx)
+  }, []);
+
+  const productObj = productsStore.selectedProduct;
+  // const title = productObj.name; 아놔 이거 어떻하냐
 
   return (
     <WrapperDiv>
